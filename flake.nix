@@ -48,13 +48,19 @@
         overlays = with self.overlays; [ core libcamera ];
       };
     in
-    {
+    rec {
       overlays = {
         core = import ./overlays (builtins.removeAttrs srcs [ "self" ]);
         libcamera = import ./overlays/libcamera.nix (builtins.removeAttrs srcs [ "self" ]);
       };
+      legacyPackages = import srcs.nixpkgs {
+        system = "x86_64-linux";
+        overlays = with self.overlays; [ core libcamera ];
+      };
+      
       nixosModules.raspberry-pi = import ./rpi {
-        inherit pinned;
+        # inherit pinned;
+        pinned = legacyPackages.pkgsCross.aarch64-multiplatform;
         core-overlay = self.overlays.core;
         libcamera-overlay = self.overlays.libcamera;
       };
