@@ -9,7 +9,7 @@
     };
     rpi-linux-6_6_47-src = {
       flake = false;
-      url = "github:raspberrypi/linux/rpi-6.6.y";
+      url = "github:raspberrypi/linux/cc50cdbcf3e8f065bd7798a92689f54578b4169f";
     };
     rpi-linux-6_10_8-src = {
       flake = false;
